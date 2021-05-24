@@ -24,7 +24,7 @@ public class EventHandler implements Runnable {
     private boolean running = true;
 
 
-    private LinkedBlockingQueue<Event> eventQueue = new LinkedBlockingQueue();
+    private LinkedBlockingQueue<Event> eventQueue = new LinkedBlockingQueue<>();
 
     public EventHandler(){ }
 
@@ -62,6 +62,15 @@ public class EventHandler implements Runnable {
         BlockActionPayload blockActionPayload;
         try {
             blockActionPayload = Deserializers.gson.fromJson(e.actionBody, BlockActionPayload.class);
+            if(        blockActionPayload.getMessage() == null
+                    || blockActionPayload.getMessage().getTs() == null
+                    || blockActionPayload.getUser() == null
+                    || blockActionPayload.getUser().getUsername() == null
+                    || blockActionPayload.getActions() == null
+            ){
+                logger.info("Ignoring malformed BlockAction");
+                return;
+            }
         } catch (Exception ex) {
             logger.severe("Unable to deserialize BlockAction: " + e.actionBody);
             return;

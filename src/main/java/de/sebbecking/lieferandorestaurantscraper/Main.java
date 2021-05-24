@@ -19,7 +19,6 @@ public class Main {
                 new NewVotingEvent(LocalTime.parse(Config.get("VOTE_END_TIME"), Config.timeFormat)),
                 LocalTime.parse(Config.get("VOTE_START_TIME"), Config.timeFormat)
         ));
-        //eventHandler.addEvent(new ScheduleRegularEvent(new NewVoteEvent(LocalTime.of(0,40))));
     }
 
 }

@@ -32,10 +32,10 @@ public enum OperatingDateEnum {
 
     @JsonCreator
     public static OperatingDateEnum forValue(String v) {
-        // A bit hacky.. For Ecxeption, this field contains a concrete Date. I realized this after writing the logic,
+        // A bit hacky.. For Exception, this field contains a concrete Date. I realized this after writing the logic,
         // so I just transform that date to the Day of week. This might be buggy, if lieferando serves the dates more than a week in advance.
         if(v.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")){
-            OperatingDateEnum.forCode(LocalDate.parse(v, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfWeek().getValue()%7);
+            return OperatingDateEnum.forCode(LocalDate.parse(v, DateTimeFormatter.ofPattern("yyyy-MM-dd")).getDayOfWeek().getValue()%7);
         }
         return OperatingDateEnum.forCode(Integer.parseInt(v));
     }

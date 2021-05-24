@@ -12,6 +12,9 @@ public class DeliveryTime {
     public List<TimeWindow> timeWindows;
 
     public Optional<TimeWindow> getForOperatingDate(OperatingDateEnum od){
+        if (this.timeWindows == null){
+            return Optional.empty();
+        }
         List<TimeWindow> results = this.timeWindows.stream().filter(tw -> tw.operatingDate == od).collect(Collectors.toList());
         if(results.size() != 1){
             return Optional.empty();

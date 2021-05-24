@@ -85,7 +85,7 @@ public class SlackConnector extends EventHandlerAware {
             openRestaurants = openRestaurants.stream().filter(restaurant -> votes.getNumberOfVotersForRestaurant(restaurant.id) > 0).collect(Collectors.toList());
         }
         List<LayoutBlock> blockList = new LinkedList<>();
-        blockList.add(section(section -> section.text(markdownText("Essens-Abstimmung!" + (votes.ended ? " (_Beendet_)" : ((votes.endTime != null) ? (" Endet " + votes.endTime.format(Config.timeFormat)) : ""))))));
+        blockList.add(section(section -> section.text(markdownText("@here Essens-Abstimmung!" + (votes.ended ? " (_Beendet_)" : ((votes.endTime != null) ? (" Endet " + votes.endTime.format(Config.timeFormat)) : ""))))));
         openRestaurants.forEach(openRestaurant -> blockList
                 .add(section(section -> {
                     section.text(markdownText(
